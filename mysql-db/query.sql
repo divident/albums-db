@@ -15,3 +15,15 @@ inner join (
 inner join author au on au.idauthor=a.fk_author
 order by sc.avg_Score desc, t.avg_album_track_rating desc
 limit 100
+
+
+Select a.idAlbum,  a.name album_name, a.year, sc.avg_Score
+from album a
+inner join (
+	select als.fk_album, avg(als.rating) avg_Score, count(als.rating) count_rating
+	from albumscore als
+	group by als.fk_album
+) sc on sc.fk_album=a.idAlbum
+order by sc.avg_Score desc
+limit 100
+
